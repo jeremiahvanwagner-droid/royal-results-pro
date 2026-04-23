@@ -1,0 +1,289 @@
+/*
+ * ROYAL RESULTS — REGAL NOIR DESIGN SYSTEM
+ * Design Movement: Art Deco meets Modern Luxury
+ * Background: near-black (#0A0A0F) | Primary: royal purple | Accent: burnished gold
+ * Typography: Cinzel Decorative (display) / Playfair Display (headings) / Lato (body)
+ */
+
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-purple-royal: var(--purple-royal);
+  --color-purple-deep: var(--purple-deep);
+}
+
+:root {
+  --radius: 0.5rem;
+  /* Core palette */
+  --background: oklch(0.08 0.015 290);
+  --foreground: oklch(0.94 0.008 80);
+  --card: oklch(0.12 0.018 290);
+  --card-foreground: oklch(0.94 0.008 80);
+  --popover: oklch(0.12 0.018 290);
+  --popover-foreground: oklch(0.94 0.008 80);
+  /* Royal purple primary */
+  --primary: oklch(0.42 0.24 292);
+  --primary-foreground: oklch(0.97 0.005 80);
+  /* Gold accent */
+  --secondary: oklch(0.16 0.02 290);
+  --secondary-foreground: oklch(0.90 0.008 80);
+  --muted: oklch(0.15 0.015 290);
+  --muted-foreground: oklch(0.65 0.01 285);
+  --accent: oklch(0.72 0.14 82);
+  --accent-foreground: oklch(0.08 0.015 290);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.22 0.025 290);
+  --input: oklch(0.18 0.02 290);
+  --ring: oklch(0.42 0.24 292);
+  /* Custom brand tokens */
+  --gold: oklch(0.72 0.14 82);
+  --gold-light: oklch(0.82 0.12 85);
+  --purple-royal: oklch(0.42 0.24 292);
+  --purple-deep: oklch(0.28 0.18 290);
+  --sidebar: oklch(0.10 0.015 290);
+  --sidebar-foreground: oklch(0.94 0.008 80);
+  --sidebar-primary: oklch(0.42 0.24 292);
+  --sidebar-primary-foreground: oklch(0.97 0.005 80);
+  --sidebar-accent: oklch(0.72 0.14 82);
+  --sidebar-accent-foreground: oklch(0.08 0.015 290);
+  --sidebar-border: oklch(0.22 0.025 290);
+  --sidebar-ring: oklch(0.42 0.24 292);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Lato', sans-serif;
+  }
+  h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+  }
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [type="button"]:not(:disabled),
+  [type="submit"]:not(:disabled),
+  a[href],
+  select:not(:disabled),
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled) {
+    @apply cursor-pointer;
+  }
+}
+
+@layer components {
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .flex {
+    min-height: 0;
+    min-width: 0;
+  }
+
+  @media (min-width: 640px) {
+    .container {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      max-width: 1280px;
+    }
+  }
+
+  /* Gold shimmer button */
+  .btn-gold {
+    background: linear-gradient(135deg, oklch(0.72 0.14 82), oklch(0.82 0.12 85), oklch(0.68 0.16 80));
+    color: oklch(0.08 0.015 290);
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-gold::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    transition: left 0.5s ease;
+  }
+  .btn-gold:hover::before {
+    left: 100%;
+  }
+  .btn-gold:hover {
+    box-shadow: 0 0 24px oklch(0.72 0.14 82 / 0.6);
+    transform: translateY(-1px);
+  }
+
+  /* Purple button */
+  .btn-purple {
+    background: oklch(0.42 0.24 292);
+    color: oklch(0.97 0.005 80);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    border: 1px solid oklch(0.52 0.22 292);
+  }
+  .btn-purple:hover {
+    background: oklch(0.50 0.26 292);
+    box-shadow: 0 0 20px oklch(0.42 0.24 292 / 0.5);
+    transform: translateY(-1px);
+  }
+
+  /* Gold rule divider */
+  .gold-rule {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, oklch(0.72 0.14 82), transparent);
+  }
+
+  /* Section heading with gold left border */
+  .section-heading {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: oklch(0.72 0.14 82);
+  }
+
+  /* Card with hover lift */
+  .service-card {
+    background: oklch(0.12 0.018 290);
+    border: 1px solid oklch(0.22 0.025 290);
+    transition: all 0.35s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid oklch(0.72 0.14 82 / 0);
+    transition: border-color 0.35s ease;
+    pointer-events: none;
+  }
+  .service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px oklch(0.08 0.015 290 / 0.8), 0 0 30px oklch(0.42 0.24 292 / 0.2);
+  }
+  .service-card:hover::before {
+    border-color: oklch(0.72 0.14 82 / 0.5);
+  }
+
+  /* Donation amount button */
+  .donation-btn {
+    border: 1px solid oklch(0.72 0.14 82 / 0.5);
+    background: transparent;
+    color: oklch(0.82 0.12 85);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    transition: all 0.25s ease;
+  }
+  .donation-btn:hover,
+  .donation-btn.active {
+    background: oklch(0.72 0.14 82);
+    color: oklch(0.08 0.015 290);
+    border-color: oklch(0.72 0.14 82);
+    box-shadow: 0 0 16px oklch(0.72 0.14 82 / 0.4);
+  }
+
+  /* Noise texture overlay */
+  .noise-overlay {
+    position: relative;
+  }
+  .noise-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.04;
+  }
+
+  /* Fade up animation */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up {
+    animation: fadeUp 0.7s ease forwards;
+  }
+
+  /* Slideshow Ken Burns */
+  @keyframes kenBurns {
+    0% { transform: scale(1.0); }
+    100% { transform: scale(1.08); }
+  }
+  .ken-burns {
+    animation: kenBurns 8s ease-in-out infinite alternate;
+  }
+
+  /* Gold glow text */
+  .text-gold {
+    color: oklch(0.72 0.14 82);
+  }
+  .text-gold-light {
+    color: oklch(0.82 0.12 85);
+  }
+  .text-purple {
+    color: oklch(0.62 0.22 292);
+  }
+
+  /* Gradient text */
+  .gradient-gold-text {
+    background: linear-gradient(135deg, oklch(0.72 0.14 82), oklch(0.88 0.10 88), oklch(0.68 0.16 80));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Purple glow */
+  .purple-glow {
+    text-shadow: 0 0 40px oklch(0.42 0.24 292 / 0.6);
+  }
+}
