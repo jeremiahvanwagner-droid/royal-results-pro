@@ -1,6 +1,23 @@
 import fs from "node:fs";
 import { execSync } from "node:child_process";
 
+// Hostinger (and some other Linux shared-hosting environments) installs
+// node_modules correctly but forgets to set the executable bit on native
+// binaries bundled inside pnpm's content-addressable store.  Fix it before
+// we try to run esbuild so the deploy doesn't fail with EACCES.
+if (process.platform === "linux") {
+  try {
+    execSync(
+      "find node_modules/.pnpm -name 'esbuild' " +
+        "-path '*/linux-x64/bin/esbuild' " +
+        "-exec chmod +x {} \\;",
+      { stdio: "pipe" }
+    );
+  } catch (_) {
+    // Binary may not exist (prod install) – safe to ignore.
+  }
+}
+
 // Smart build: if the pre-built dist/ is committed (production deploy path,
 // e.g. Hostinger with --prod install), skip the build entirely. This avoids
 // running esbuild on environments that block native-binary execution.
