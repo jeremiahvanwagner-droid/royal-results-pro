@@ -8,7 +8,7 @@ import { registerStorageProxy } from "./storageProxy";
 import { registerStripeWebhook } from "../stripe";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
-import { serveStatic, setupVite } from "./vite";
+import { serveStatic } from "./static";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -47,8 +47,11 @@ async function startServer() {
       createContext,
     })
   );
-  // development mode uses Vite, production mode uses static files
+  // development mode uses Vite dev server; production mode serves pre-built static files.
+  // Dynamic import ensures the vite module (and its devDep imports) is fully tree-shaken
+  // from the production bundle by esbuild's --define:process.env.NODE_ENV='"production"'.
   if (process.env.NODE_ENV === "development") {
+    const { setupVite } = await import("./vite.js");
     await setupVite(app, server);
   } else {
     serveStatic(app);

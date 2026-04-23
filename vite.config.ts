@@ -150,7 +150,17 @@ function vitePluginManusDebugCollector(): Plugin {
   };
 }
 
-const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector()];
+// Vite sets NODE_ENV=production automatically during `vite build`.
+// Exclude Manus/dev-only plugins from production client bundles so no
+// Manus-platform API calls are injected into the deployed site.
+const isProduction = process.env.NODE_ENV === "production";
+const plugins = [
+  react(),
+  tailwindcss(),
+  ...(!isProduction
+    ? [jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector()]
+    : []),
+];
 
 export default defineConfig({
   plugins,

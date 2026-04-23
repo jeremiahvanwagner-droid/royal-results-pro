@@ -3,7 +3,9 @@
 .pnpm-store/
 
 # Build outputs
-dist/
+# dist/ is intentionally committed so Hostinger can deploy without running a build
+# (avoids esbuild binary permission errors on shared hosting).
+# Run `pnpm build` locally and commit the result before pushing.
 build/
 *.dist
 
