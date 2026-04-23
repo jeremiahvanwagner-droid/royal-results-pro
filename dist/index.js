@@ -449,16 +449,34 @@ function registerStorageProxy(app) {
 // server/stripe.ts
 import Stripe from "stripe";
 import express from "express";
-var stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: "2026-03-25.dahlia"
-});
+var _stripe = null;
+var _warnedMissingKey = false;
+function getStripe() {
+  if (_stripe) return _stripe;
+  const key = process.env.STRIPE_SECRET_KEY;
+  if (!key) {
+    if (!_warnedMissingKey) {
+      console.warn(
+        "[Stripe] STRIPE_SECRET_KEY is not set \u2014 Stripe features are disabled."
+      );
+      _warnedMissingKey = true;
+    }
+    return null;
+  }
+  _stripe = new Stripe(key, { apiVersion: "2026-03-25.dahlia" });
+  return _stripe;
+}
 function registerStripeWebhook(app) {
   app.post(
     "/api/stripe/webhook",
     express.raw({ type: "application/json" }),
     async (req, res) => {
-      const sig = req.headers["stripe-signature"];
+      const stripe = getStripe();
       const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+      if (!stripe || !webhookSecret) {
+        return res.status(503).send("Stripe is not configured on this server.");
+      }
+      const sig = req.headers["stripe-signature"];
       let event;
       try {
         event = stripe.webhooks.constructEvent(req.body, sig, webhookSecret);
@@ -499,6 +517,12 @@ async function createDonationCheckoutSession({
   message,
   origin
 }) {
+  const stripe = getStripe();
+  if (!stripe) {
+    throw new Error(
+      "Stripe is not configured \u2014 set STRIPE_SECRET_KEY to enable donations."
+    );
+  }
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
     mode: "payment",

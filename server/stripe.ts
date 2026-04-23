@@ -7,9 +7,24 @@ import Stripe from "stripe";
 import type { Express, Request, Response } from "express";
 import express from "express";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2026-03-25.dahlia",
-});
+let _stripe: Stripe | null = null;
+let _warnedMissingKey = false;
+
+function getStripe(): Stripe | null {
+  if (_stripe) return _stripe;
+  const key = process.env.STRIPE_SECRET_KEY;
+  if (!key) {
+    if (!_warnedMissingKey) {
+      console.warn(
+        "[Stripe] STRIPE_SECRET_KEY is not set — Stripe features are disabled."
+      );
+      _warnedMissingKey = true;
+    }
+    return null;
+  }
+  _stripe = new Stripe(key, { apiVersion: "2026-03-25.dahlia" });
+  return _stripe;
+}
 
 /**
  * Register the Stripe webhook route.
@@ -20,13 +35,18 @@ export function registerStripeWebhook(app: Express) {
     "/api/stripe/webhook",
     express.raw({ type: "application/json" }),
     async (req: Request, res: Response) => {
-      const sig = req.headers["stripe-signature"] as string;
+      const stripe = getStripe();
       const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+      if (!stripe || !webhookSecret) {
+        return res.status(503).send("Stripe is not configured on this server.");
+      }
+
+      const sig = req.headers["stripe-signature"] as string;
 
       let event: Stripe.Event;
 
       try {
-        event = stripe.webhooks.constructEvent(req.body, sig, webhookSecret!);
+        event = stripe.webhooks.constructEvent(req.body, sig, webhookSecret);
       } catch (err: unknown) {
         const message = err instanceof Error ? err.message : "Unknown error";
         console.error("[Stripe Webhook] Signature verification failed:", message);
@@ -79,6 +99,12 @@ export async function createDonationCheckoutSession({
   message?: string;
   origin: string;
 }): Promise<string> {
+  const stripe = getStripe();
+  if (!stripe) {
+    throw new Error(
+      "Stripe is not configured — set STRIPE_SECRET_KEY to enable donations."
+    );
+  }
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
     mode: "payment",
