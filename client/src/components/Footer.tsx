@@ -3,7 +3,7 @@
  * Regal Noir: dark background, gold crown logo, Cinzel typography
  */
 
-const CROWN_IMG = "/crown.jpg";
+const CROWN_IMG = "/crown.png";
 
 const footerLinks = {
   Services: [
