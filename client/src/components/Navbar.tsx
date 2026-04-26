@@ -68,18 +68,18 @@ export default function Navbar() {
                   width: "2.4rem",
                   height: "2rem",
                   objectFit: "contain",
-                  filter: "drop-shadow(0 0 6px oklch(0.72 0.14 82/0.7))",
+                  filter: "drop-shadow(oklab(0.72 0.0194842 0.138638 / 0.41291) 0px 0px 4.15493px) drop-shadow(oklab(0.72 0.0194842 0.138638 / 0.207746) 0px 0px 8.30985px) drop-shadow(oklab(0.62 0.0250512 0.178248 / 0.00774628) 0px 0px 0.774628px)",
                   animation: "crownGlow 2.8s ease-in-out infinite",
                 }}
               />
               <style>{`
                 @keyframes crownGlow {
                   0%, 100% {
-                    filter: drop-shadow(0 0 4px oklch(0.72 0.14 82/0.4)) drop-shadow(0 0 8px oklch(0.72 0.14 82/0.2));
+                    filter: drop-shadow(oklab(0.72 0.0194842 0.138638 / 0.41291) 0px 0px 4.15493px) drop-shadow(oklab(0.72 0.0194842 0.138638 / 0.207746) 0px 0px 8.30985px) drop-shadow(oklab(0.62 0.0250512 0.178248 / 0.00774628) 0px 0px 0.774628px);
                     transform: scale(1);
                   }
                   50% {
-                    filter: drop-shadow(0 0 10px oklch(0.72 0.14 82/0.9)) drop-shadow(0 0 20px oklch(0.72 0.14 82/0.5)) drop-shadow(0 0 30px oklch(0.62 0.18 82/0.3));
+                    filter: drop-shadow(oklab(0.72 0.0194842 0.138638 / 0.9) 0px 0px 10px) drop-shadow(oklab(0.72 0.0194842 0.138638 / 0.5) 0px 0px 20px) drop-shadow(oklab(0.62 0.0250512 0.178248 / 0.3) 0px 0px 30px);
                     transform: scale(1.06);
                   }
                 }
