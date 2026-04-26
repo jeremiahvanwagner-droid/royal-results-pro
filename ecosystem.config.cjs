@@ -1,10 +1,15 @@
+const path = require("path");
+
 module.exports = {
   apps: [
     {
       name: "royalresults",
       script: "dist/index.js",
       interpreter: "node",
-      interpreter_args: "--experimental-vm-modules --env-file=.env",
+      // cwd locks the working directory so all relative paths resolve correctly
+      // Set this to the absolute path of the project root on your server
+      // e.g. /home/user/royal-results-pro  or  /var/www/royal-results-pro
+      cwd: process.env.APP_DIR || path.resolve(__dirname),
       env: {
         NODE_ENV: "production",
         PORT: "3000",
