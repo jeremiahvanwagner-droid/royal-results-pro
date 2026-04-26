@@ -1,5 +1,7 @@
 // server/_core/index.ts
-import "dotenv/config";
+import { config as loadEnv } from "dotenv";
+import { fileURLToPath } from "url";
+import { dirname, resolve } from "path";
 import express3 from "express";
 import { createServer } from "http";
 import net from "net";
@@ -464,6 +466,7 @@ function getStripe() {
     return null;
   }
   _stripe = new Stripe(key, { apiVersion: "2026-03-25.dahlia" });
+  console.log("[Stripe] Initialized successfully.");
   return _stripe;
 }
 function registerStripeWebhook(app) {
@@ -767,13 +770,16 @@ function serveStatic(app) {
 }
 
 // server/_core/index.ts
+var __dir = dirname(fileURLToPath(import.meta.url));
+loadEnv({ path: resolve(__dir, "../.env") });
+loadEnv({ path: resolve(__dir, "../../.env") });
 function isPortAvailable(port) {
-  return new Promise((resolve) => {
+  return new Promise((resolve2) => {
     const server = net.createServer();
     server.listen(port, () => {
-      server.close(() => resolve(true));
+      server.close(() => resolve2(true));
     });
-    server.on("error", () => resolve(false));
+    server.on("error", () => resolve2(false));
   });
 }
 async function findAvailablePort(startPort = 3e3) {
@@ -788,6 +794,9 @@ async function startServer() {
   const app = express3();
   const server = createServer(app);
   registerStripeWebhook(app);
+  if (!process.env.STRIPE_SECRET_KEY) {
+    console.warn("[Stripe] WARNING: STRIPE_SECRET_KEY is not set \u2014 donations will not work. Check your .env file.");
+  }
   app.use(express3.json({ limit: "50mb" }));
   app.use(express3.urlencoded({ limit: "50mb", extended: true }));
   registerStorageProxy(app);
