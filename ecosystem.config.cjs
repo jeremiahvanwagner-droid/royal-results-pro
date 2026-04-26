@@ -4,7 +4,7 @@ module.exports = {
       name: "royalresults",
       script: "dist/index.js",
       interpreter: "node",
-      interpreter_args: "--experimental-vm-modules",
+      interpreter_args: "--experimental-vm-modules --env-file=.env",
       env: {
         NODE_ENV: "production",
         PORT: "3000",
