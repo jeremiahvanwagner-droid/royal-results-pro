@@ -7,7 +7,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 
-const CROWN_IMG = "/crown.jpg";
+const CROWN_IMG = "/crown.png";
 
 const navLinks = [
   { label: "Home", href: "#home" },
