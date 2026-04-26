@@ -10,7 +10,7 @@ import { Heart, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { trpc } from "@/lib/trpc";
 
-const CROWN_IMG = "/manus-storage/royal-crown_c39f0de4.jpg";
+const CROWN_IMG = "/crown.svg";
 
 const presets = [10, 25, 50, 100];
 

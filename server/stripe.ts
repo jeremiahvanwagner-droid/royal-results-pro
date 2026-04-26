@@ -23,6 +23,7 @@ function getStripe(): Stripe | null {
     return null;
   }
   _stripe = new Stripe(key, { apiVersion: "2026-03-25.dahlia" });
+  console.log("[Stripe] Initialized successfully.");
   return _stripe;
 }
 

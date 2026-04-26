@@ -1,4 +1,12 @@
-import "dotenv/config";
+import { config as loadEnv } from "dotenv";
+import { fileURLToPath } from "url";
+import { dirname, resolve } from "path";
+// Resolve .env relative to this file so it loads correctly regardless of working directory.
+// In production (dist/index.js): resolve('../.env') → project root
+// In development (server/_core/index.ts via tsx): resolve('../../.env') → project root
+const __dir = dirname(fileURLToPath(import.meta.url));
+loadEnv({ path: resolve(__dir, "../.env") });
+loadEnv({ path: resolve(__dir, "../../.env") });
 import express from "express";
 import { createServer } from "http";
 import net from "net";
@@ -34,6 +42,9 @@ async function startServer() {
   const server = createServer(app);
   // Register Stripe webhook BEFORE express.json() so raw body is preserved for signature verification
   registerStripeWebhook(app);
+  if (!process.env.STRIPE_SECRET_KEY) {
+    console.warn("[Stripe] WARNING: STRIPE_SECRET_KEY is not set — donations will not work. Check your .env file.");
+  }
   // Configure body parser with larger size limit for file uploads
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
