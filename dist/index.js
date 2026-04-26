@@ -2,6 +2,7 @@
 import { config as loadEnv } from "dotenv";
 import { fileURLToPath } from "url";
 import { dirname, resolve } from "path";
+import { existsSync } from "fs";
 import express3 from "express";
 import { createServer } from "http";
 import net from "net";
@@ -465,7 +466,7 @@ function getStripe() {
     }
     return null;
   }
-  _stripe = new Stripe(key, { apiVersion: "2026-03-25.dahlia" });
+  _stripe = new Stripe(key, { apiVersion: "2024-11-20.acacia" });
   console.log("[Stripe] Initialized successfully.");
   return _stripe;
 }
@@ -536,7 +537,7 @@ async function createDonationCheckoutSession({
           unit_amount: amountCents,
           product_data: {
             name: "Donation to Royal Results",
-            description: "Your generous donation supports counseling, mentorship, and community programs in San Antonio.",
+            description: "Your generous donation supports counseling, mentorship, and community programs.",
             images: []
           }
         },
@@ -771,8 +772,34 @@ function serveStatic(app) {
 
 // server/_core/index.ts
 var __dir = dirname(fileURLToPath(import.meta.url));
-loadEnv({ path: resolve(__dir, "../.env") });
-loadEnv({ path: resolve(__dir, "../../.env") });
+var envCandidates = [
+  // production: script is dist/index.js, .env is one level up at project root
+  resolve(__dir, "../.env"),
+  // development: script is server/_core/index.ts, .env is two levels up
+  resolve(__dir, "../../.env"),
+  // fallback: wherever Node's current working directory is (covers PM2 cwd scenarios)
+  resolve(process.cwd(), ".env")
+];
+var envLoaded = false;
+for (const p of envCandidates) {
+  if (existsSync(p)) {
+    const result = loadEnv({ path: p, override: false });
+    if (!result.error) {
+      console.log(`[env] Loaded .env from: ${p}`);
+      envLoaded = true;
+      break;
+    }
+  }
+}
+if (!envLoaded) {
+  console.warn("[env] WARNING: No .env file found in any candidate path \u2014 relying on shell environment variables only.");
+}
+if (!process.env.STRIPE_SECRET_KEY) {
+  console.warn("[Stripe] WARNING: STRIPE_SECRET_KEY is not set. Check your .env file or PM2 env config.");
+  console.warn("[Stripe] Searched paths:", envCandidates.join(", "));
+} else {
+  console.log("[Stripe] STRIPE_SECRET_KEY detected \u2014 Stripe will initialize on first use.");
+}
 function isPortAvailable(port) {
   return new Promise((resolve2) => {
     const server = net.createServer();
@@ -794,9 +821,6 @@ async function startServer() {
   const app = express3();
   const server = createServer(app);
   registerStripeWebhook(app);
-  if (!process.env.STRIPE_SECRET_KEY) {
-    console.warn("[Stripe] WARNING: STRIPE_SECRET_KEY is not set \u2014 donations will not work. Check your .env file.");
-  }
   app.use(express3.json({ limit: "50mb" }));
   app.use(express3.urlencoded({ limit: "50mb", extended: true }));
   registerStorageProxy(app);
