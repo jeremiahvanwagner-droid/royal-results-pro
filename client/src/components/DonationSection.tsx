@@ -10,7 +10,7 @@ import { Heart, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { trpc } from "@/lib/trpc";
 
-const CROWN_IMG = "/crown.svg";
+const CROWN_IMG = "/crown.jpg";
 
 const presets = [10, 25, 50, 100];
 
@@ -86,10 +86,9 @@ export default function DonationSection() {
               src={CROWN_IMG}
               alt="Crown"
               style={{
-                width: "2rem",
-                height: "1.6rem",
+                width: "3.5rem",
+                height: "2.8rem",
                 objectFit: "contain",
-                filter: "drop-shadow(0 0 4px oklch(0.72 0.14 82/0.6))",
               }}
             />
             <div className="h-px w-16" style={{ background: "oklch(0.72 0.14 82)" }} />

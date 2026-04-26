@@ -3,7 +3,7 @@
  * Regal Noir: dark background, gold crown logo, Cinzel typography
  */
 
-const CROWN_IMG = "/manus-storage/royal-crown_c39f0de4.jpg";
+const CROWN_IMG = "/crown.jpg";
 
 const footerLinks = {
   Services: [
@@ -38,7 +38,7 @@ export default function Footer() {
               <img
                 src={CROWN_IMG}
                 alt="Royal Crown"
-                style={{ width: "2.6rem", height: "2.2rem", objectFit: "contain", filter: "drop-shadow(0 0 6px oklch(0.72 0.14 82/0.5))" }}
+                style={{ width: "3.2rem", height: "2.6rem", objectFit: "contain" }}
               />
               <div className="flex flex-col leading-none">
                 <span

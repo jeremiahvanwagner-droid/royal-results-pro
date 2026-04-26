@@ -7,7 +7,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 
-const CROWN_IMG = "/crown.svg";
+const CROWN_IMG = "/crown.jpg";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -63,27 +63,13 @@ export default function Navbar() {
               <img
                 src={CROWN_IMG}
                 alt="Royal Crown"
-                className="transition-all duration-300 group-hover:scale-110"
+                className="transition-transform duration-300 group-hover:scale-110"
                 style={{
-                  width: "2.4rem",
-                  height: "2rem",
+                  width: "3rem",
+                  height: "2.4rem",
                   objectFit: "contain",
-                  filter: "drop-shadow(oklab(0.72 0.0194842 0.138638 / 0.41291) 0px 0px 4.15493px) drop-shadow(oklab(0.72 0.0194842 0.138638 / 0.207746) 0px 0px 8.30985px) drop-shadow(oklab(0.62 0.0250512 0.178248 / 0.00774628) 0px 0px 0.774628px)",
-                  animation: "crownGlow 2.8s ease-in-out infinite",
                 }}
               />
-              <style>{`
-                @keyframes crownGlow {
-                  0%, 100% {
-                    filter: drop-shadow(oklab(0.72 0.0194842 0.138638 / 0.41291) 0px 0px 4.15493px) drop-shadow(oklab(0.72 0.0194842 0.138638 / 0.207746) 0px 0px 8.30985px) drop-shadow(oklab(0.62 0.0250512 0.178248 / 0.00774628) 0px 0px 0.774628px);
-                    transform: scale(1);
-                  }
-                  50% {
-                    filter: drop-shadow(oklab(0.72 0.0194842 0.138638 / 0.9) 0px 0px 10px) drop-shadow(oklab(0.72 0.0194842 0.138638 / 0.5) 0px 0px 20px) drop-shadow(oklab(0.62 0.0250512 0.178248 / 0.3) 0px 0px 30px);
-                    transform: scale(1.06);
-                  }
-                }
-              `}</style>
             </div>
             <div className="flex flex-col leading-none flex-shrink-0">
               <span
