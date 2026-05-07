@@ -11,7 +11,9 @@
       "Bash(powershell -Command ' *)",
       "Bash(git checkout *)",
       "Bash(git push *)",
-      "Bash(gh pr create --title 'fix: GHL CRM bug fixes + service-based pipeline routing' --body ' *)"
+      "Bash(gh pr create --title 'fix: GHL CRM bug fixes + service-based pipeline routing' --body ' *)",
+      "Bash(git fetch *)",
+      "Bash(git merge *)"
     ]
   }
 }
