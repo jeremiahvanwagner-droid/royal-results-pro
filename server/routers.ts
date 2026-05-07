@@ -50,12 +50,19 @@ export const appRouter = router({
             .mutation(async ({ input }) => {
                 const GHL_API_KEY = process.env.GHL_API_KEY;
                 const GHL_LOCATION_ID = process.env.GHL_LOCATION_ID;
-                const GHL_PIPELINE_ID = process.env.GHL_PIPELINE_ID;
-                const GHL_PIPELINE_STAGE_ID = process.env.GHL_PIPELINE_STAGE_ID;
 
                 if (!GHL_API_KEY || !GHL_LOCATION_ID) {
                     throw new Error("GHL API credentials not configured");
                 }
+
+                const PIPELINE_MAP: Record<string, { pipelineId: string; stageId: string }> = {
+                    counseling: { pipelineId: "DZqWkbnMYLR2KsM6CZEI", stageId: "89341beb-8ebd-4c01-aaef-70e79a6ae945" },
+                    mentorship: { pipelineId: "TQ4YwWKY0mK0oHBsrMOQ", stageId: "81db76c4-0979-4928-8f80-77881dc70c55" },
+                    events:     { pipelineId: "ftTAZgsyqiVYmOY1bxjM", stageId: "b1ef045a-c53f-4f2e-b562-1f0495583974" },
+                    detailing:  { pipelineId: "7PX9HoWqvgtdHEQOjC4g", stageId: "fc6efa25-033c-49e2-af7d-56b0d961418a" },
+                    bodyrepair: { pipelineId: "7PX9HoWqvgtdHEQOjC4g", stageId: "fc6efa25-033c-49e2-af7d-56b0d961418a" },
+                    webdev:     { pipelineId: "96BqPumQUNIcnX4igrA0", stageId: "971e5379-ef03-4959-bae5-17ddc5dfa0c1" },
+                };
 
                 const nameParts = input.name.trim().split(/\s+/).filter(Boolean);
                 const firstName = nameParts[0] || input.name.trim();
@@ -132,7 +139,8 @@ export const appRouter = router({
                     }
                 }).catch(err => console.error("Failed to add note:", err));
 
-                if (GHL_PIPELINE_ID && GHL_PIPELINE_STAGE_ID) {
+                const pipeline = PIPELINE_MAP[input.service ?? ""];
+                if (pipeline) {
                     await fetch(
                         "https://services.leadconnectorhq.com/opportunities/",
                         {
@@ -144,8 +152,8 @@ export const appRouter = router({
                             },
                             body: JSON.stringify({
                                 locationId: GHL_LOCATION_ID,
-                                pipelineId: GHL_PIPELINE_ID,
-                                pipelineStageId: GHL_PIPELINE_STAGE_ID,
+                                pipelineId: pipeline.pipelineId,
+                                pipelineStageId: pipeline.stageId,
                                 contactId,
                                 name: `${input.name} — ${serviceValue}`,
                                 status: "open",
