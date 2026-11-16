@@ -132,6 +132,10 @@ export default function Footer() {
             style={{ color: "oklch(0.45 0.01 285)", fontFamily: "'Lato', sans-serif" }}
           >
             © {new Date().getFullYear()} Royal Results. All rights reserved.
+            {" · "}
+            <a href="/privacy" className="hover:underline">Privacy</a>
+            {" · "}
+            <a href="/terms#terms" className="hover:underline">Terms</a>
           </p>
           <p
             className="text-xs tracking-widest uppercase"

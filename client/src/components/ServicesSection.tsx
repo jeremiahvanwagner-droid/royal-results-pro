@@ -14,7 +14,7 @@ const services = [
     description:
       "Compassionate, confidential counseling services to help you navigate life's challenges. Our licensed counselors provide a safe space for healing, clarity, and transformation.",
     features: ["Individual Sessions", "Group Therapy", "Crisis Support", "Life Coaching"],
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663540109243/QoiehgGQf9qBcahXdrELUK/counseling-mentorship-jRcggKx4hTE45GQuFr3gpj.webp",
+    image: "/images/service-counseling.jpg",
   },
   {
     icon: Users,
@@ -23,7 +23,7 @@ const services = [
     description:
       "Connect with experienced mentors who guide you through professional development, leadership growth, and strategic goal-setting to unlock your full potential.",
     features: ["1-on-1 Mentoring", "Career Planning", "Leadership Training", "Goal Setting"],
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663540109243/QoiehgGQf9qBcahXdrELUK/service-mentorship-DdMx2CSszdD6P4B4GeGoAH.webp",
+    image: "/images/service-mentorship.jpg",
   },
   {
     icon: CalendarDays,
@@ -32,7 +32,7 @@ const services = [
     description:
       "From intimate gatherings to grand corporate events, our expert team handles every detail — décor, logistics, and execution — to create extraordinary experiences.",
     features: ["Corporate Events", "Private Galas", "Community Events", "Full Logistics"],
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663540109243/QoiehgGQf9qBcahXdrELUK/hero-slide3-bKseXaJbuPctKv7Ba27aRj.webp",
+    image: "/images/hero-3-events.jpg",
   },
   {
     icon: Sparkles,
@@ -41,7 +41,7 @@ const services = [
     description:
       "Premium car detailing services that restore your vehicle to showroom perfection. We use professional-grade products and meticulous techniques for a flawless finish.",
     features: ["Interior Detailing", "Exterior Polish", "Paint Protection", "Ceramic Coating"],
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663540109243/QoiehgGQf9qBcahXdrELUK/car-detailing-UWbfUMBUSWQ9qBy9AvgDXM.webp",
+    image: "/images/service-detailing.jpg",
   },
   {
     icon: Wrench,
@@ -50,7 +50,7 @@ const services = [
     description:
       "Expert automotive body repair services using state-of-the-art equipment. From minor dents to major collision damage, we restore your vehicle to its original glory.",
     features: ["Dent Removal", "Collision Repair", "Paint Matching", "Frame Straightening"],
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663540109243/QoiehgGQf9qBcahXdrELUK/service-car-body-repair-eSazfHAirDxsYn7FNzLMQx.webp",
+    image: "/images/service-body-repair.jpg",
   },
   {
     icon: Globe,
@@ -59,7 +59,7 @@ const services = [
     description:
       "Custom, high-performance websites and digital solutions that elevate your brand online. From sleek landing pages to full e-commerce platforms, we build for results.",
     features: ["Custom Design", "E-Commerce", "SEO Optimization", "Mobile-First"],
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663540109243/QoiehgGQf9qBcahXdrELUK/service-web-dev-BWP4a47W3Y5cZVUKGCt8Zg.webp",
+    image: "/images/service-web-dev.jpg",
   },
 ];
 

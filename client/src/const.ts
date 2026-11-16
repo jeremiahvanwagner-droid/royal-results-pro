@@ -15,3 +15,6 @@ export const getLoginUrl = () => {
 
   return url.toString();
 };
+
+// GHL "Free Consultation" calendar in the Royal Results sub-account
+export const BOOKING_URL = "https://api.leadconnectorhq.com/widget/booking/LwJGuqGlKmCfvRlfQj4p";

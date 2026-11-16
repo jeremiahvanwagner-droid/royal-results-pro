@@ -9,7 +9,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const slides = [
   {
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663540109243/QoiehgGQf9qBcahXdrELUK/hero-slide1-haRtGf3Z6zPv4y9jmDYaBa.webp",
+    image: "/images/hero-1.jpg",
     tag: "Empowering Excellence",
     headline: "Elevate Your\nPotential",
     subtext:
@@ -18,7 +18,7 @@ const slides = [
     ctaHref: "#services",
   },
   {
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663540109243/QoiehgGQf9qBcahXdrELUK/hero-slide2-JMz8CYy6ZG5PGybFTp6NCy.webp",
+    image: "/images/hero-2.jpg",
     tag: "Guidance & Growth",
     headline: "Counseling &\nMentorship",
     subtext:
@@ -27,7 +27,7 @@ const slides = [
     ctaHref: "#services",
   },
   {
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663540109243/QoiehgGQf9qBcahXdrELUK/hero-slide3-bKseXaJbuPctKv7Ba27aRj.webp",
+    image: "/images/hero-3-events.jpg",
     tag: "Unforgettable Events",
     headline: "Royal Event\nExperiences",
     subtext:

@@ -6,7 +6,7 @@
 import { useState } from "react";
 import { Phone, Mail, MapPin, Send, Loader2 } from "lucide-react";
 import { toast } from "sonner";
-import { trpc } from "@lib/trpc";
+import { trpc } from "@/lib/trpc";
 
 const contactInfo = [
   {

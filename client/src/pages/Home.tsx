@@ -1,14 +1,14 @@
 /*
  * ROYAL RESULTS — HOME PAGE
  * Regal Noir: Full single-page layout assembling all sections
- * Sections: Navbar → Hero Slideshow → About → Services → Testimonials → Donation → Contact → Footer
+ * Sections: Navbar → Hero Slideshow → About → Services → How It Works → Donation → Contact → Footer
  */
 
 import Navbar from "@/components/Navbar";
 import HeroSlideshow from "@/components/HeroSlideshow";
 import AboutSection from "@/components/AboutSection";
 import ServicesSection from "@/components/ServicesSection";
-import TestimonialsSection from "@/components/TestimonialsSection";
+import ProcessSection from "@/components/ProcessSection";
 import DonationSection from "@/components/DonationSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
@@ -23,7 +23,7 @@ export default function Home() {
       <HeroSlideshow />
       <AboutSection />
       <ServicesSection />
-      <TestimonialsSection />
+      <ProcessSection />
       <DonationSection />
       <ContactSection />
       <Footer />
